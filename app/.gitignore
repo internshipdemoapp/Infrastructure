@@ -1,0 +1,14 @@
+*.tfstate
+*.tfstate.backup
+*.tfstate.backup.*
+
+.terraform/
+.terraform.*
+
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+crash.log
+prod-key
