@@ -1,5 +1,5 @@
 resource "aws_security_group" "bastion_host" {
-  name        = "${var.namespace}_SecurityGroup_BastionHost_${var.environment}"
+  name        = "${var.namespace}-security-group-bastion-host-${var.environment}"
   description = "Bastion host Security Group"
   vpc_id      = var.vpc_id
 

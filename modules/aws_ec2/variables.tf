@@ -10,6 +10,7 @@ variable "environment" {
 }
 
 variable "key_pair_name" {
+  type = string
   default = "ssh-key-pair"
 }
 
