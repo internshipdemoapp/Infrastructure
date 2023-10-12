@@ -21,11 +21,11 @@ resource "aws_ecs_task_definition" "default" {
       environment : [
         {
           name : "DBNAME",
-          value : "test"
+          value : "local.db_creds.DbName"
         },
         {
           name : "DBUSER",
-          value : "test"
+          value : "local.db_creds.DbUsername"
         },
         {
           name : "DBHOST",
@@ -37,11 +37,11 @@ resource "aws_ecs_task_definition" "default" {
         },
         {
           name : "DBPORT",
-          value : "test"
+          value : "3306"
         },
         {
           name : "DBPASS",
-          value : "test"
+          value : "local.db_creds.DbPassword"
         }
       ]
       logConfiguration = {
