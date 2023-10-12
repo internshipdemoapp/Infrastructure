@@ -57,6 +57,5 @@ resource "aws_alb_target_group" "service_target_group" {
     protocol            = "HTTP"
     timeout             = 30
   }
-
   depends_on = [aws_alb.alb]
 }
