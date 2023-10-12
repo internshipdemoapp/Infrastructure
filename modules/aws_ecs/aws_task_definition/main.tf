@@ -29,7 +29,7 @@ resource "aws_ecs_task_definition" "default" {
         },
         {
           name : "DBHOST",
-          value : "test"
+          value : "aws_db_instance.rds_db.endpoint"
         },
         {
           name : "DBSSLMODE",
