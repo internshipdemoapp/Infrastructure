@@ -17,7 +17,7 @@ pipeline {
         stage ("Logs module plan") {
             steps {
                 echo "Logs module plan..."
-                sh ('terraform plan -target="module.aws_ecr"') 
+                sh ('terraform plan -target="module.aws_cloud_watch_logs"') 
             }
         }
 
