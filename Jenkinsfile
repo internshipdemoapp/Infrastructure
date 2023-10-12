@@ -84,14 +84,14 @@ pipeline {
             steps {  
                 echo "Pushing to ECR..."
                 sh 'cd Store-Web-Application'
-                sh 'docker build -f MVC_apple_store/Dockerfile apple -t dev/store-web-app .'
-                sh 'docker tag dev/store-web-app:latest 203203060972.dkr.ecr.us-east-1.amazonaws.com/dev/store-web-app:latest' 
+                sh 'docker build -f MVC_apple_store/Dockerfile -t store-web-application .'
+                sh 'docker tag store-web-application:latest 203203060972.dkr.ecr.us-east-1.amazonaws.com/store-web-application:latest' 
             }
         }
         stage("Pushing to ECR"){
             steps{
                 echo "Pushing to ECR..."
-                sh "docker push 203203060972.dkr.ecr.us-east-1.amazonaws.com/dev/store-web-app:latest"
+                sh "docker push 203203060972.dkr.ecr.us-east-1.amazonaws.com/store-web-application:latest"
             }
         }
         stage('Update ECS'){
