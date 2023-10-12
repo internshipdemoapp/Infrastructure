@@ -1,3 +1,13 @@
+data "aws_secretsmanager_secret_version" "creds" {
+  secret_id = var.secret_name
+}
+
+locals {
+  db_creds = jsondecode(
+    data.aws_secretsmanager_secret_version.creds.secret_string
+  )
+}
+
 resource "aws_ecs_task_definition" "default" {
   family             = "${var.namespace}-ecs_task-definition-${var.environment}"
   execution_role_arn = var.ecs_task_execution_role_arn
@@ -20,28 +30,20 @@ resource "aws_ecs_task_definition" "default" {
       ]
       environment : [
         {
-          name : "DBNAME",
-          value : "test"
+          name : "DbName",
+          value : local.db_creds.DbName
         },
         {
-          name : "DBUSER",
-          value : "test"
+          name : "DbPassword",
+          value : local.db_creds.DbPassword
         },
         {
-          name : "DBHOST",
-          value : "test"
+          name : "DbHost",
+          value : var.db_host
         },
         {
-          name : "DBSSLMODE",
-          value : "none"
-        },
-        {
-          name : "DBPORT",
-          value : "test"
-        },
-        {
-          name : "DBPASS",
-          value : "test"
+          name : "DbPassword",
+          value : local.db_creds.DbPassword
         }
       ]
       logConfiguration = {

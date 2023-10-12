@@ -14,7 +14,7 @@ variable "ec2_instance_role_profile_arn" {
 }
 
 variable "key_pair_name" {
-  default = "app-key-pair"
+  default = "ssh-key-pair"
 }
 
 variable "instance_type" {

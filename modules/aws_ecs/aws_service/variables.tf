@@ -12,7 +12,6 @@ variable "environment" {
 variable "service_name" {
   description = "A Docker image-compatible name for the service"
   type        = string
-  default     = "web-app-movie"
 }
 
 variable "service_target_group_arn" {
