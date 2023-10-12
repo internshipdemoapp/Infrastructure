@@ -75,7 +75,7 @@ pipeline {
             steps{
                 
                 echo "ECR Authentication.."
-                sh ""
+                sh "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 203203060972.dkr.ecr.us-east-1.amazonaws.com"
                 
             }
         }    
@@ -84,14 +84,14 @@ pipeline {
             steps {  
                 echo "Pushing to ECR..."
                 sh 'cd Store-Web-Application'
-                sh 'docker build -f MVC_apple_store/Dockerfile apple .'
-                sh 'docker tag ...' 
+                sh 'docker build -f MVC_apple_store/Dockerfile apple -t dev/store-web-app .'
+                sh 'docker tag dev/store-web-app:latest 203203060972.dkr.ecr.us-east-1.amazonaws.com/dev/store-web-app:latest' 
             }
         }
         stage("Pushing to ECR"){
             steps{
                 echo "Pushing to ECR..."
-                sh ""
+                sh "docker push 203203060972.dkr.ecr.us-east-1.amazonaws.com/dev/store-web-app:latest"
             }
         }
         stage('Update ECS'){
