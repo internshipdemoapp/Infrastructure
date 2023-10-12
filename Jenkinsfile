@@ -57,10 +57,10 @@ pipeline {
         stage ("ECS module plan") {
             steps {
                 echo "ECS module plan..."
-                sh ('terraform plan -target="aws_ecs_cluster"') 
-                sh ('terraform plan -target="aws_ecs_task_defenition"') 
-                sh ('terraform plan -target="aws_ecs_service"') 
-                sh ('terraform plan -target="aws_launch_template"') 
+                sh ('terraform plan -target="module.aws_ecs_cluster"') 
+                sh ('terraform plan -target="module.aws_ecs_task_defenition"') 
+                sh ('terraform plan -target="module.aws_ecs_service"') 
+                sh ('terraform plan -target="module.aws_launch_template"') 
             }
         }
 
