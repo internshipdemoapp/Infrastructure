@@ -28,7 +28,7 @@ pipeline {
                 sh ('terraform plan -target="module.aws_subnets"')
                 sh ('terraform plan -target="module.aws_sg')
                 sh ('terraform plan -target="module.aws_alb"')
-                sh ('terraform plan -target="aws_dns"')
+                sh ('terraform plan -target="module.aws_dns"')
             }
         }
 
