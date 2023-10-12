@@ -21,15 +21,15 @@ resource "aws_ecs_task_definition" "default" {
       environment : [
         {
           name : "DBNAME",
-          value : "local.db_creds.DbName"
+          value : local.db_creds.DbName
         },
         {
           name : "DBUSER",
-          value : "local.db_creds.DbUsername"
+          value : local.db_creds.DbUsername
         },
         {
           name : "DBHOST",
-          value : "aws_db_instance.rds_db.endpoint"
+          value : aws_db_instance.rds_db.endpoint
         },
         {
           name : "DBSSLMODE",
@@ -37,11 +37,11 @@ resource "aws_ecs_task_definition" "default" {
         },
         {
           name : "DBPORT",
-          value : "3306"
+          value : 3306
         },
         {
           name : "DBPASS",
-          value : "local.db_creds.DbPassword"
+          value : local.db_creds.DbPassword
         }
       ]
       logConfiguration = {
