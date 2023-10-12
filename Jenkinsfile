@@ -57,10 +57,10 @@ pipeline {
         stage ("ECS module plan") {
             steps {
                 echo "ECS module plan..."
-                sh ('terraform plan -target="aws_ecs_cluster"') 
-                sh ('terraform plan -target="aws_ecs_task_defenition"') 
-                sh ('terraform plan -target="aws_ecs_service"') 
-                sh ('terraform plan -target="aws_launch_template"') 
+                sh ('terraform plan -target="module.aws_ecs_cluster"') 
+                sh ('terraform plan -target="module.aws_ecs_task_defenition"') 
+                sh ('terraform plan -target="module.aws_ecs_service"') 
+                sh ('terraform plan -target="module.aws_launch_template"') 
             }
         }
 
@@ -74,7 +74,7 @@ pipeline {
         stage("ECR Authentication"){
             steps{
                 
-                echo "Logging to ECR.."
+                echo "ECR Authentication.."
                 sh ""
                 
             }
@@ -82,10 +82,10 @@ pipeline {
 
         stage('Build&Tag') {
             steps {  
-                echo "Pushing to ECR..."         
-                sh 'docker build -f MVC_apple_store/Dockerfile .'
-                sh 'cd MVC_apple_store'
-                sh 'docker tag ' 
+                echo "Pushing to ECR..."
+                sh 'cd Store-Web-Application'
+                sh 'docker build -f MVC_apple_store/Dockerfile apple .'
+                sh 'docker tag ...' 
             }
         }
         stage("Pushing to ECR"){
