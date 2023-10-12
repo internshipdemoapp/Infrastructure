@@ -16,7 +16,7 @@ variable "environment" {
 variable "service_name" {
   description = "A Docker image-compatible name for the service"
   type        = string
-  default     = "web-app-movie"
+  default     = "Store-Web-Application"
 }
 
 # variable "" {

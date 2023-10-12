@@ -7,7 +7,7 @@ resource "aws_ecs_task_definition" "default" {
     {
 
       name      = var.service_name
-      image     = "494250472911.dkr.ecr.us-east-1.amazonaws.com/movie-web-app:v.1"
+      image     = "test"
       cpu       = var.cpu_units
       memory    = var.memory
       essential = true
@@ -21,15 +21,15 @@ resource "aws_ecs_task_definition" "default" {
       environment : [
         {
           name : "DBNAME",
-          value : "moviedb"
+          value : "test"
         },
         {
           name : "DBUSER",
-          value : "stas"
+          value : "test"
         },
         {
           name : "DBHOST",
-          value : "database.cgtbyvcjmrhg.us-east-1.rds.amazonaws.com"
+          value : "test"
         },
         {
           name : "DBSSLMODE",
@@ -37,11 +37,11 @@ resource "aws_ecs_task_definition" "default" {
         },
         {
           name : "DBPORT",
-          value : "3306"
+          value : "test"
         },
         {
           name : "DBPASS",
-          value : "12345678"
+          value : "test"
         }
       ]
       logConfiguration = {
