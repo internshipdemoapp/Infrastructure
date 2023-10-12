@@ -7,6 +7,12 @@ module "aws_ecr" {
   namespace = var.namespace
 }
 
+module "aws_backend" {
+  source    = "../modules/aws_backend"
+  vpc_id              = module.aws_vpc.vpc_id
+  
+}
+
 module "aws_vpc" {
   source    = "../modules/aws_network/aws_vpc"
   namespace = var.namespace
