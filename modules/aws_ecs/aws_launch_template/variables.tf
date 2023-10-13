@@ -13,9 +13,9 @@ variable "ec2_instance_role_profile_arn" {
   type = string
 }
 
-variable "key_pair_name" {
-  default = "app-key-pair"
-}
+#variable "key_pair_name" {
+#  default = "app-key-pair"
+#}
 
 variable "instance_type" {
   default = "t2.micro"
