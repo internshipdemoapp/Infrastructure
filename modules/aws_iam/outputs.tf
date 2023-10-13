@@ -3,11 +3,11 @@ output "ecs_service_role_arn" {
 }
 
 output "ec2_instance_role_profile_arn" {
-    value = aws_iam_instance_profile.ec2_instance_role_profile.arn
+  value = aws_iam_instance_profile.ec2_instance_role_profile.arn
 }
 
 output "ecs_task_execution_role_arn" {
-  value = aws_iam_role_policy_attachment.ecs_task_execution_role_policy.policy_arn
+  value = aws_iam_role.ecs_task_execution_role.arn
 }
 
 output "ecs_task_iam_role_arn" {
