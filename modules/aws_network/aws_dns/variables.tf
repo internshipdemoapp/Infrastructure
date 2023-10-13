@@ -1,6 +1,6 @@
 variable "domain_name" {
   type = string
-  default = "demoapp.app.ua"
+  default = "demoapp.pp.ua"
 }
 
 variable "dns_name" {
