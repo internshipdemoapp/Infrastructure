@@ -1,5 +1,5 @@
 resource "aws_security_group" "bastion_host" {
-  name        = "${var.namespace}_SecurityGroup_BastionHost_${var.environment}"
+  name        = "${var.namespace}-security-group-bastion-host-${var.environment}"
   description = "Bastion host Security Group"
   vpc_id      = var.vpc_id
 
@@ -17,6 +17,10 @@ resource "aws_security_group" "bastion_host" {
     to_port     = 0
     protocol    = -1
     cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name     = "${var.namespace}-bastion-host-instance-security-group-${var.environment}"
   }
 }
 
@@ -60,7 +64,7 @@ resource "aws_security_group" "alb" {
   vpc_id      = var.vpc_id
 
   ingress {
-    description = "Allow all ingress traffic"
+    description = "Allow ingress traffic on 80 port"
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
@@ -68,7 +72,7 @@ resource "aws_security_group" "alb" {
   }
 
   ingress {
-    description = "Allow all ingress traffic"
+    description = "Allow ingress traffic on 443 port"
     from_port   = 443
     to_port     = 443
     protocol    = "tcp"
@@ -94,7 +98,7 @@ resource "aws_security_group" "db" {
   vpc_id      = var.vpc_id
 
   ingress {
-    description     = "Allow all egress traffic"
+    description     = "Allow ingress traffic on 3306 port"
     from_port       = 3306
     to_port         = 3306
     protocol        = "tcp"
