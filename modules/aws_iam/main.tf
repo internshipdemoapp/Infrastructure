@@ -1,5 +1,5 @@
 resource "aws_iam_role" "ec2_instance_role" {
-  name               = "${var.namespace}_EC2_InstanceRole_${var.environment}"
+  name               = "${var.namespace}-ec2-intsance-role-${var.environment}"
   assume_role_policy = data.aws_iam_policy_document.ec2_instance_role_policy.json
 }
 
