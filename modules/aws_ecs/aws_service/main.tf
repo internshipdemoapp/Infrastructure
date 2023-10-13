@@ -28,10 +28,66 @@ resource "aws_ecs_service" "default" {
   }
 }
 
-output "ecs_service_name" {
-  value = aws_ecs_service.default.name
+resource "aws_autoscaling_group" "ecs_autoscaling_group" {
+  name                  = "${var.namespace}-asg-${var.environment}"
+  max_size              = var.autoscaling_max_size
+  min_size              = var.autoscaling_min_size
+  vpc_zone_identifier   = var.private_subnet_ids
+  health_check_type     = "EC2"
+  protect_from_scale_in = true
+
+  enabled_metrics = [
+    "GroupMinSize",
+    "GroupMaxSize",
+    "GroupDesiredCapacity",
+    "GroupInServiceInstances",
+    "GroupPendingInstances",
+    "GroupStandbyInstances",
+    "GroupTerminatingInstances",
+    "GroupTotalInstances"
+  ]
+
+  launch_template {
+    id      = var.ecs_launch_template_id
+    version = "$Latest"
+  }
+
+  instance_refresh {
+    strategy = "Rolling"
+  }
+
+  lifecycle {
+    create_before_destroy = true
+  }
+
+  tag {
+    key                 = "Name"
+    value               = "${var.namespace}-asg-${var.environment}"
+    propagate_at_launch = true
+  }
 }
 
+
+resource "aws_ecs_capacity_provider" "cas" {
+  name = "${var.namespace}-ecs-capacity-provider-${var.environment}"
+
+  auto_scaling_group_provider {
+    auto_scaling_group_arn         = aws_autoscaling_group.ecs_autoscaling_group.arn
+    managed_termination_protection = "ENABLED"
+
+    managed_scaling {
+      maximum_scaling_step_size = var.maximum_scaling_step_size
+      minimum_scaling_step_size = var.minimum_scaling_step_size
+      status                    = "ENABLED"
+      target_capacity           = var.target_capacity
+    }
+  }
+}
+
+resource "aws_ecs_cluster_capacity_providers" "cas" {
+  cluster_name       = var.ecs_cluster_default_name
+  capacity_providers = [aws_ecs_capacity_provider.cas.name]
+}
 
 resource "aws_appautoscaling_target" "ecs_target" {
   max_capacity       = var.ecs_task_max_count
