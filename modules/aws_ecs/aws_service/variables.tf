@@ -12,7 +12,6 @@ variable "environment" {
 variable "service_name" {
   description = "A Docker image-compatible name for the service"
   type        = string
-  default     = "web-app-movie"
 }
 
 variable "service_target_group_arn" {
@@ -75,13 +74,23 @@ variable "memory_target_tracking_desired_value" {
 
 variable "maximum_scaling_step_size" {
   description = "Maximum amount of EC2 instances that should be added on scale-out"
-  default     = 5
+  default     = 3
   type        = number
+}
+
+variable "autoscaling_max_size" {
+  default = 3
+  type = string
+}
+
+variable "autoscaling_min_size" {
+  default = 2
+  type = string
 }
 
 variable "minimum_scaling_step_size" {
   description = "Minimum amount of EC2 instances that should be added on scale-out"
-  default     = 1
+  default     = 2
   type        = number
 }
 
@@ -111,4 +120,12 @@ variable "memory" {
 
 variable "ecs_cluster_default_name" {
   type = string
+}
+
+variable "ecs_launch_template_id" {
+  type        = string
+}
+
+variable "private_subnet_ids" {
+  type = list(string)
 }
