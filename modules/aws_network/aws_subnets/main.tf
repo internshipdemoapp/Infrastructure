@@ -66,6 +66,17 @@ resource "aws_subnet" "private" {
   }
 }
 
+# resource "aws_subnet" "database" {
+#   count             = var.az_count
+#   cidr_block        = cidrsubnet(var.vpc_cidr_block, 8, count.index)
+#   availability_zone = data.aws_availability_zones.available.names[count.index]
+#   vpc_id            = var.vpc_id
+
+#   tags = {
+#     Name     = "${var.namespace}-database-subnet-${count.index}-${var.environment}"
+#   }
+# }
+
 resource "aws_route_table" "private" {
   count  = var.az_count
   vpc_id = var.vpc_id
@@ -80,11 +91,26 @@ resource "aws_route_table" "private" {
   }
 }
 
+# resource "aws_route_table" "database" {
+#   count  = var.az_count
+#   vpc_id = var.vpc_id
+
+#   tags = {
+#     Name     = "${var.namespace}-database-route-table-${count.index}-${var.environment}"
+#   }
+# }
+
 resource "aws_route_table_association" "private" {
   count          = var.az_count
   subnet_id      = aws_subnet.private[count.index].id
   route_table_id = aws_route_table.private[count.index].id
 }
+
+# resource "aws_route_table_association" "database" {
+#   count          = var.az_count
+#   subnet_id      = aws_subnet.database[count.index].id
+#   route_table_id = aws_route_table.database[count.index].id
+# }
 
 resource "aws_db_subnet_group" "db" {
   name        = "db "
