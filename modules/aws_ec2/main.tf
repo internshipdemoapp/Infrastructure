@@ -28,6 +28,7 @@ resource "aws_instance" "bastion_host" {
   instance_type               = var.instance_type
   subnet_id                   = var.public_subnet_id
   associate_public_ip_address = true
-  key_name                    = data.aws_key_pair.ssh.id	
+  key_name                    = data.aws_key_pair.ssh.key_name	
+  user_data = file("migration.sh")
   vpc_security_group_ids = [var.security_group_bastion_host_id]
 }
