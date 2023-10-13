@@ -13,15 +13,20 @@ variable "environment" {
   type        = string
 }
 
+variable "secret_name" {
+  type    = string
+  default = "AppleStore/Db"
+}
+
+variable "db_host" {
+  type = string
+}
+
 variable "service_name" {
   description = "A Docker image-compatible name for the service"
   type        = string
-  default     = "Store-Web-Application"
+  default     = "store-web-application"
 }
-
-# variable "" {
-  
-# }
 
 variable "ecs_task_execution_role_arn" {
   type = string
@@ -50,10 +55,6 @@ variable "memory" {
 }
 
 variable "log_group_name" {
-  type = string
-}
-
-variable "secretsmanager_secret_db_arn" {
   type = string
 }
 
